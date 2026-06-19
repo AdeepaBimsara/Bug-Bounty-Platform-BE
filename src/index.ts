@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import authRoutes from "./routes/authRoutes"
 
 dotenv.config();
 
@@ -18,6 +19,8 @@ app.use(express.json());
 app.get("/", (req, res) => {
     res.send("Backend Running...");
 });
+
+app.use("/api/v1/auth",authRoutes)
 
 mongoose
     .connect(MONGO_URL)
