@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import authRoutes from "./routes/authRoutes"
+import reportRoutes from './routes/reportRoutes'
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/auth",authRoutes)
+app.use("/api/v1/reports", reportRoutes);
 
 mongoose
     .connect(MONGO_URL)
