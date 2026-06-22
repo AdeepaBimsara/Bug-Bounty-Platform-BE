@@ -35,3 +35,62 @@ export const createReport = async (
     });
   }
 };
+
+export const getReport = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+
+    const reports = await Report.find();
+
+    res.status(200).json(reports);
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      message: "Failed to fetch reports"
+    });
+
+  }
+};
+
+export const updateReport = async (req: Request, res: Response) => {
+  try {
+
+    const updatedReport = await Report.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+
+    res.status(200).json(updatedReport);
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: "Update failed"
+    });
+
+  }
+};
+
+export const deleteReport = async (req: Request, res: Response) => {
+  try {
+
+    await Report.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({
+      message: "Report deleted"
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: "Delete failed"
+    });
+
+  }
+};
