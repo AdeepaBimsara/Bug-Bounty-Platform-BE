@@ -7,7 +7,7 @@ export enum UserRole{
 }
 
 export interface IUser extends Document{
-    role: UserRole[]
+    role: UserRole
     fullName: string
     email: string
     password: string
@@ -16,9 +16,9 @@ export interface IUser extends Document{
 const userSchema = new Schema<IUser>(
     {
         role:{
-            type: [String],
+            type: String,
             enum: Object.values(UserRole),
-            default: [UserRole.RESEARCHER]
+            default: UserRole.RESEARCHER
         },
 
         fullName: {

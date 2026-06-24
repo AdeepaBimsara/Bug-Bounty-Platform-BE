@@ -24,7 +24,7 @@ export const registerUser = async (req: Request, res: Response) => {
         const hashedPassword = bcrypt.hashSync(password,salt)
 
         const newUser = new UserModel({
-            roles: [UserRole.RESEARCHER],
+            role: role || UserRole.RESEARCHER,
             fullName,
             email,
             password: hashedPassword
@@ -72,8 +72,8 @@ export const login = async (req: Request, res: Response) => {
          res.status(200).json({
             message: "success",
             data: {
-                email: user?.email,
-                roles: user?.role,
+                email: user.email,
+                role: user.role,
                 accessToken,
                 refreshToken
             }
@@ -121,6 +121,7 @@ export const refreshToken = async (req: Request, res: Response) => {
     if (!user) {
       return res.status(403).json({ message: "Invalid or expire token" })
     }
+    
     const newAccessToken = signAccessToken(user)
     res.status(200).json({
       message: "",

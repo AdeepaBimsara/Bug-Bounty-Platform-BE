@@ -10,7 +10,7 @@ router.post("/register",registerUser)
 
 router.post("/login", login)
 
-router.get("/me", authenticate, getMyDetails)
+router.get("/me", authenticate,getMyDetails)
 
 // router.post(
 //   "/admin/register",

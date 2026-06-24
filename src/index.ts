@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import authRoutes from "./routes/authRoutes"
 import reportRoutes from './routes/reportRoutes'
+import programRoutes from "./routes/programRoutes";
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/auth",authRoutes)
 app.use("/api/v1/reports", reportRoutes);
+app.use("/api/v1/programs",programRoutes)
 
 mongoose
     .connect(MONGO_URL)
