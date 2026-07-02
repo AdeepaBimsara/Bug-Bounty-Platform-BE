@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getMyDetails, login, registerUser,refreshToken } from "../controller/authController";
+import { getMyDetails, login, registerUser,refreshToken, getProfile } from "../controller/authController";
 import { authenticate } from "../middleware/auth";
 import { requireRole } from "../middleware/roles";
 import { UserRole } from "../models/userModel";
@@ -20,6 +20,8 @@ router.get("/me", authenticate,getMyDetails)
 // )
 
 router.post("/refresh", refreshToken)
+
+router.get("/profile",authenticate,getProfile);
 
 
 

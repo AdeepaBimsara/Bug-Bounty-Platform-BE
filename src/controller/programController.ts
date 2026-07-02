@@ -134,3 +134,38 @@ export const updateProgram = async (
     });
   }
 };
+
+export const getProgramById = async (req: AuthRequest, res: Response) => {
+  const program = await ProgramModel.findById(req.params.id)
+    .populate("companyId", "fullName");
+
+  if (!program) {
+    return res.status(404).json({
+      message: "Program not found",
+    });
+  }
+
+  res.status(200).json({
+    data: program,
+  });
+};
+
+export const browsePrograms = async (
+  req: AuthRequest,
+  res: Response
+) => {
+  try {
+    const programs = await ProgramModel.find({
+      status: "ACTIVE",
+      visibility: "PUBLIC",
+    }).populate("companyId", "fullName");
+
+    res.status(200).json({
+      data: programs,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: "Failed to fetch programs",
+    });
+  }
+};

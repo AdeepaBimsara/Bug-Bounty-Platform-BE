@@ -131,3 +131,39 @@ export const refreshToken = async (req: Request, res: Response) => {
     res.status(403).json({ message: "Invalid or expire token" })
   }
 }
+
+export const getProfile = async (
+  req: AuthRequest,
+  res: Response
+) => {
+  try {
+
+    if (!req.user) {
+      return res.status(401).json({
+        message: "Unauthorized"
+      });
+    }
+
+    const user = await UserModel
+      .findById(req.user.sub)
+      .select("-password");
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found"
+      });
+    }
+
+    res.status(200).json({
+      message: "Profile Loaded",
+      data: user
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      message: "Server Error"
+    });
+
+  }
+};

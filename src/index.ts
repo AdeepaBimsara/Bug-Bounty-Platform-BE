@@ -22,9 +22,10 @@ app.get("/", (req, res) => {
     res.send("Backend Running...");
 });
 
-app.use("/api/v1/auth",authRoutes)
+app.use("/api/v1/auth",authRoutes);
+// app.use("/api/v1/auth/profile",authRoutes);
 app.use("/api/v1/reports", reportRoutes);
-app.use("/api/v1/programs",programRoutes)
+app.use("/api/v1/programs",programRoutes);
 
 mongoose
     .connect(MONGO_URL)
